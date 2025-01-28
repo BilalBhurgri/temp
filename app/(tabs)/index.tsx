@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/components/Themed';
-
-
-type EditorState = {
-  name: string;
-  color: string;
-  // TODO: add more later
-  loc: Location;
-  buildingName: string;
-  filter: string;
-  building: {shortName: string, longName: string, location: Location}[];
-  newLocationBoxClicked: boolean;
-  markerId: number;
-};
+import { useAudioRecorder, RecordingOptions, AudioModule, RecordingPresets } from '@node_modules/expo-audio';
 
 export default function TabOneScreen() {
-    const [areWeRecording] = useState(false);
+    const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
+
+
+
+
+
+
+    const [recording, setRecordingState] = useState(false);
+    const [fetching, setFetchingState] = useState(false);
 
     const startRecording = () => {
-        areWeRecording = true;
+         setRecordingState(true);
     };
 
     const stopRecording = () => {
-        areWeRecording = false;
+        setRecordingState(false);
     };
 
   return (
