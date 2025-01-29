@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MagicMemory",
-    "slug": "MagicMemory",
+    "slug": "magicmemory",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,7 +21,11 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.boskyb.MagicMemory"
+      "package": "com.boskyb.MagicMemory",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -29,13 +33,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
-      [
-        "expo-audio",
-        {
-          "microphonePermission": "Allow MagicMemory to access your microphone."
-        }
-      ]
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
@@ -45,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "ce96de15-a6e5-4ed9-9c81-2e1d0c0862ed"
+        "projectId": "75a72c63-4ed9-4fb8-93af-f47402bf96ba"
       }
-    }
+    },
+    "owner": "magicmemory"
   }
 }
