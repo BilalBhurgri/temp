@@ -5,8 +5,8 @@ import ollama
 #from fastapi.responses import FileResponse
 from transformers import AutoProcessor, BarkModel
 import scipy
+import time
 
-#ollama = Ollama()
 app = Flask(__name__)
 
 def roughTest(fileName):
@@ -33,7 +33,6 @@ def roughTest(fileName):
 
 roughTest("philos.mp3")
 
-'''
 @app.route("/response")
 def serverResponse(filepath):
     # store file
@@ -50,20 +49,27 @@ def storeAudio():
     return 0
 
 def speechToText(filepath):
-    model = whisper.load_model("base")
-    result = model.transcribe(filepath)
-    return result
+    whisper_model = whisper.load_model("base")
+    whisper_result = model.transcribe(filepath)
+    return whisper_result
     llmResponse(result["text"])
     data = {'transcribedUser'}
+    end_time = time.time
+    print('Speech to Text', end_time-start_time)
+    return whisper_result
 
 def llmResponse(query):
+    start_time = time.time
     ollama.pull("llama3.2")
-    response = ollama.generate(model="llama3.2", prompt=query)
-    return response
+    ollama_response = ollama.generate(model="llama3.2", prompt=query)
+    end_time = time.time
+    print('LLM Response: ', end_time-start_time)
+    return ollama_response
 
 def textToSpeech(filepath):
-    processor = AutoProcessor.from_pretrained("suno/bark")
-    model = BarkModel.from_pretrained("suno/bark")
+    start_time = time.time
+    bark_processor = AutoProcessor.from_pretrained("suno/bark")
+    bark_model = BarkModel.from_pretrained("suno/bark")
 
     voice_preset = "v2/en_speaker_6"
 
@@ -74,7 +80,8 @@ def textToSpeech(filepath):
 
     sample_rate = model.generation_config.sample_rate
     scipy.io.wavfile.write("bark_out.wav", rate=sample_rate, data=audio_array)
+    end_time = time.time
+    print('Text to Speech : ', end_time-start_time)
 
 if __name__ == "__main__":
     app.run(debug=True)
-'''
